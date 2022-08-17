@@ -1,9 +1,14 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import App from './App';
-import './index.css';
+import * as React from "react";
+import * as ReactDOMClient from "react-dom/client";
+import "bulma"
 
-ReactDOM.render(
-  <App />,
-  document.getElementById('root')
-);
+import * as Pages from "./pages";
+
+function Volleyboard() {
+  return (
+    <Pages.Home />
+  );
+}
+
+const root = ReactDOMClient.createRoot(document.getElementById("root"));
+root.render(<Volleyboard />);
