@@ -1,6 +1,5 @@
 import * as React from "react";
 import * as ReactDOMClient from "react-dom/client";
-import "bulma"
 
 import * as Pages from "./pages";
 
