@@ -1,0 +1,39 @@
+{
+  "players": [
+    {
+      "id": 1,
+      "name": "Player 1",
+      "sub": false
+    },
+    {
+      "id": 2,
+      "name": "Player 2",
+      "sub": false
+    },
+    {
+      "id": 3,
+      "name": "Player 3",
+      "sub": false
+    },
+    {
+      "id": 4,
+      "name": "Player 4",
+      "sub": false
+    },
+    {
+      "id": 5,
+      "name": "Player 5",
+      "sub": false
+    },
+    {
+      "id": 6,
+      "name": "Player 6",
+      "sub": false
+    },
+    {
+      "id": 7,
+      "name": "Sub 1",
+      "sub": true
+    }
+  ]
+}
