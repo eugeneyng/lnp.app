@@ -59,6 +59,9 @@ export default function Home() {
     function CreateRivalRotation() {
       const [rivals, setRivals] = React.useState(defaults.players);
 
+      let backrow = [rivals[0].name, rivals[1].name, rivals[2].name]
+      let frontrow = [rivals[3].name, rivals[4].name, rivals[5].name]
+
       return rivals.map(createPlayerCard);
     }
 
@@ -66,7 +69,7 @@ export default function Home() {
       return (
         <div className="column">
           <div className="card" key={player.id}>
-            {player.name}
+            {player.name} : {player.sub.toString()}
           </div>
         </div>
       )
