@@ -1,39 +1,28 @@
 {
   "players": [
     {
-      "id": 1,
-      "name": "Player 1",
-      "sub": false
+      "name": "H"
     },
     {
-      "id": 2,
-      "name": "Player 2",
-      "sub": false
+      "name": "A"
     },
     {
-      "id": 3,
-      "name": "Player 3",
-      "sub": false
+      "name": "B"
     },
     {
-      "id": 4,
-      "name": "Player 4",
-      "sub": false
+      "name": "C"
     },
     {
-      "id": 5,
-      "name": "Player 5",
-      "sub": false
+      "name": "D"
     },
     {
-      "id": 6,
-      "name": "Player 6",
-      "sub": false
+      "name": "E"
     },
     {
-      "id": 7,
-      "name": "Sub 1",
-      "sub": true
+      "name": "F"
+    },
+    {
+      "name": "G"
     }
   ]
 }
