@@ -1,28 +1,36 @@
 {
   "players": [
     {
-      "name": "H"
+      "name": "H",
+      "position": 0
     },
     {
-      "name": "A"
+      "name": "A",
+      "position": 1
     },
     {
-      "name": "B"
+      "name": "B",
+      "position": 2
     },
     {
-      "name": "C"
+      "name": "C",
+      "position": 3
     },
     {
-      "name": "D"
+      "name": "D",
+      "position": 4
     },
     {
-      "name": "E"
+      "name": "E",
+      "position": 5
     },
     {
-      "name": "F"
+      "name": "F",
+      "position": 6
     },
     {
-      "name": "G"
+      "name": "G",
+      "position": 7
     }
   ]
 }

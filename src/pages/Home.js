@@ -4,9 +4,6 @@ import defaults from "../assets/defaults.json";
 
 export default function Home() {
 
-  const [rivals, setRivals] = React.useState(defaults.players);
-  const [friends, setFriends] = React.useState(defaults.players);
-
   return (
     <div className="hero is-fullheight">
       <div className="hero-head">
@@ -23,7 +20,7 @@ export default function Home() {
           </div>
 
           {/* This section is for the net */}
-          <div className="section py-0">
+          <div className="section py-0 has-text-centered">
             <hr />
             <button>Rotate</button>
             <hr />
@@ -46,52 +43,9 @@ export default function Home() {
     </div>
   );
 
-  function createPlayerCard(player) {
-    return (
-      <div className="card my-5 has-background-grey-lighter has-text-centered"
-           draggable="true"
-           key={player.name}
-           onDragOver={(event) => allowDrop(event)}
-           onDragStart={(event) => startDrag(event)}
-           onDrop={(event) => swap(event)}>
-        <div className="card-content">
-          <div className="title">
-            {player.name.charAt(0)}
-          </div>
-          <p contentEditable="true"
-             suppressContentEditableWarning="true"
-             onKeyDown={(event) => allowKeyDown(event, player)}>
-            {player.name}
-          </p>
-        </div>
-      </div>
-    )
-  }
-
-  function allowDrop(event) {
-    event.preventDefault(); // Default behavior is not to allow drop, so we will allow this
-  }
-  
-  function allowKeyDown(event, player) {
-    if (event.key === "Enter") {
-      event.preventDefault();
-      player.name = event.target.innerHTML.replace(/\br/g,'')
-      setFriends(friends);
-      setRivals(rivals);
-      event.target.blur();
-    }
-  }
-  
-  function startDrag(event) {
-    console.log("Dragging ...")
-  }
-
-  function swap(event) {
-    console.log("Swapping ...")
-    event.preventDefault();
-  }
-
   function RivalTeam() {
+
+    const [rivals, setRivals] = React.useState(defaults.players);
 
     let rightsubs = [rivals[0]]
     let rightside = [rivals[1], rivals[2]];
@@ -123,9 +77,72 @@ export default function Home() {
       </div>
     )
 
+    function createPlayerCard(player) {
+      return (
+        <div className="card my-5 has-background-grey-lighter has-text-centered"
+             draggable="true"
+             id={player.position} // need this for event attributes
+             key={player.name}
+             onDragOver={(event) => allowDrop(event)}
+             onDragStart={(event) => startDrag(event)}
+             onDrop={(event) => swap(event)}
+        >
+          <div className="card-content">
+            <div className="title">
+              {player.name.charAt(0)}
+            </div>
+            <p contentEditable="true"
+               suppressContentEditableWarning="true"
+               onKeyDown={(event) => allowKeyDown(event, player)}>
+              {player.name}
+            </p>
+          </div>
+        </div>
+      )
+    }
+  
+    function allowDrop(event) {
+      event.preventDefault(); // Default behavior is not to allow drop, so we will allow this
+    }
+    
+    function allowKeyDown(event, player) {
+      if (event.key === "Enter") {
+        event.preventDefault();
+        player.name = event.target.innerHTML.replace(/\br/g,'')
+        setRivals([...rivals]);
+        event.target.blur();
+      }
+    }
+    
+    function startDrag(event) {
+      event.dataTransfer.setData("oldPosition", event.target.getAttribute("id"));
+    }
+  
+    function swap(event, element) {
+      event.preventDefault();
+
+      let oldPosition = parseInt(event.dataTransfer.getData("oldPosition"), 10);
+      let newPosition = parseInt(event.target.parentNode.getAttribute("id"), 10);
+      if (!Number.isNaN(newPosition)) {
+        let temp = rivals[oldPosition];
+    
+        rivals[oldPosition] = rivals[newPosition];
+        rivals[newPosition] = temp
+        
+        rivals[oldPosition].position = oldPosition;
+        rivals[newPosition].position = newPosition;
+  
+        setRivals([...rivals]);
+      }
+  
+  
+    }
+
   }
 
   function FriendlyTeam() {
+
+    const [friends, setFriends] = React.useState(defaults.players);
 
     let rightsubs = [friends[7]]
     let rightside = [friends[4], friends[5]];
@@ -156,5 +173,66 @@ export default function Home() {
         </div>
       </div>
     )
+
+    function createPlayerCard(player) {
+      return (
+        <div className="card my-5 has-background-grey-lighter has-text-centered"
+             draggable="true"
+             id={player.position} // need this for event attributes
+             key={player.name}
+             onDragOver={(event) => allowDrop(event)}
+             onDragStart={(event) => startDrag(event)}
+             onDrop={(event) => swap(event)}
+        >
+          <div className="card-content">
+            <div className="title">
+              {player.name.charAt(0)}
+            </div>
+            <p contentEditable="true"
+               suppressContentEditableWarning="true"
+               onKeyDown={(event) => allowKeyDown(event, player)}>
+              {player.name}
+            </p>
+          </div>
+        </div>
+      )
+    }
+  
+    function allowDrop(event) {
+      event.preventDefault(); // Default behavior is not to allow drop, so we will allow this
+    }
+    
+    function allowKeyDown(event, player) {
+      if (event.key === "Enter") {
+        event.preventDefault();
+        player.name = event.target.innerHTML.replace(/\br/g,'')
+        setFriends([...friends]);
+        event.target.blur();
+      }
+    }
+    
+    function startDrag(event) {
+      event.dataTransfer.setData("oldPosition", event.target.getAttribute("id"));
+    }
+  
+    function swap(event, element) {
+      event.preventDefault();
+
+      let oldPosition = parseInt(event.dataTransfer.getData("oldPosition"), 10);
+      let newPosition = parseInt(event.target.parentNode.getAttribute("id"), 10);
+      if (!Number.isNaN(newPosition)) {
+        let temp = friends[oldPosition];
+    
+        friends[oldPosition] = friends[newPosition];
+        friends[newPosition] = temp
+        
+        friends[oldPosition].position = oldPosition;
+        friends[newPosition].position = newPosition;
+  
+        setFriends([...friends]);
+      }
+  
+  
+    }
   }
 }
