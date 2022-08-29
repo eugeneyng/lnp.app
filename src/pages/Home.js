@@ -46,6 +46,7 @@ export default function Home() {
   function RivalTeam() {
 
     const [rivals, setRivals] = React.useState(defaults.players);
+    console.log(rivals);
 
     let rightsubs = [rivals[0]]
     let rightside = [rivals[1], rivals[2]];
@@ -82,7 +83,7 @@ export default function Home() {
         <div className="card my-5 has-background-grey-lighter has-text-centered"
              draggable="true"
              id={player.position} // need this for event attributes
-             key={player.name}
+             key={player.position} // TODO: React is getting confused by duplicating keys
              onDragOver={(event) => allowDrop(event)}
              onDragStart={(event) => startDrag(event)}
              onDrop={(event) => swap(event)}
@@ -143,33 +144,34 @@ export default function Home() {
   function FriendlyTeam() {
 
     const [friends, setFriends] = React.useState(defaults.players);
+    console.log(friends);
 
-    let rightsubs = [friends[7]]
-    let rightside = [friends[4], friends[5]];
-    let middleide = [friends[3], friends[6]];
-    let leftside =  [friends[2], friends[1]];
-    let leftsubs = [friends[0]]
+    let frightsubs = [friends[7]]
+    let frightside = [friends[4], friends[5]];
+    let fmiddleide = [friends[3], friends[6]];
+    let fleftside =  [friends[2], friends[1]];
+    let fleftsubs = [friends[0]]
 
     return (
       <div className="columns is-mobile is-vcentered">
         <div className="column is-one-fifth">
-          {rightsubs.map(createPlayerCard)}
+          {frightsubs.map(createPlayerCard)}
         </div>
         <div className="box has-background-grey-light column">
           <div className="columns is-mobile is-vcentered">
             <div className="column">
-              {rightside.map(createPlayerCard)}
+              {frightside.map(createPlayerCard)}
             </div>
             <div className="column">
-              {middleide.map(createPlayerCard)}
+              {fmiddleide.map(createPlayerCard)}
             </div>
             <div className="column">
-              {leftside.map(createPlayerCard)}
+              {fleftside.map(createPlayerCard)}
             </div>
           </div>
         </div>
         <div className="column is-one-fifth">
-          {leftsubs.map(createPlayerCard)}
+          {fleftsubs.map(createPlayerCard)}
         </div>
       </div>
     )
@@ -215,7 +217,7 @@ export default function Home() {
       event.dataTransfer.setData("oldPosition", event.target.getAttribute("id"));
     }
   
-    function swap(event, element) {
+    function swap(event) {
       event.preventDefault();
 
       let oldPosition = parseInt(event.dataTransfer.getData("oldPosition"), 10);
