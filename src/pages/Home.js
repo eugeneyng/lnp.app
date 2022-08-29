@@ -107,9 +107,10 @@ export default function Home() {
     }
     
     function allowKeyDown(event, player) {
-      if (event.key === "Enter") {
+      if (event.key === "Enter" || event.key === "Tab") {
         event.preventDefault();
-        player.name = event.target.innerHTML.replace(/\br/g,'')
+        let newName = event.target.innerHTML.replace("<br>", "")
+        player.name = newName
         setRivals([...rivals]);
         event.target.blur();
       }
