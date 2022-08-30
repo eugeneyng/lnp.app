@@ -62,7 +62,8 @@ export function VolleyballRival() {
           <p className="has-background-primary" 
             contentEditable="true"
             suppressContentEditableWarning="true"
-            onKeyDown={(event) => allowKeyDown(event, player)}>
+            onBlur={(event) => overwritePlayer(event, player)}
+            onKeyDown={(event) => allowKeyDown(event)}>
             {player.name}
           </p>
         </div>
@@ -74,14 +75,18 @@ export function VolleyballRival() {
     event.preventDefault(); // Default behavior is not to allow drop, so we will allow this
   }
 
-  function allowKeyDown(event, player) {
+  function allowKeyDown(event) {
     if (event.key === "Enter" || event.key === "Tab") {
       event.preventDefault();
-      let newName = event.target.innerHTML.replace("<br>", "")
-      player.name = newName
-      setTeam([...team]);
       event.target.blur();
     }
+  }
+
+  function overwritePlayer(event, player) {
+    event.preventDefault();
+    let newName = event.target.innerHTML.replace("<br>", "")
+    player.name = newName
+    setTeam([...team]);
   }
 
   function startDrag(event) {
@@ -92,18 +97,26 @@ export function VolleyballRival() {
     event.preventDefault();
 
     let oldPosition = parseInt(event.dataTransfer.getData("text"), 10);
-    let newPosition = parseInt(event.target.parentNode.getAttribute("id"), 10);
-    if (!Number.isNaN(newPosition)) {
-      let temp = team[oldPosition];
 
-      team[oldPosition] = team[newPosition];
-      team[newPosition] = temp
+    let checkParent = parseInt(event.target.parentNode.getAttribute("id"), 10);
+    let checkGrandParent = parseInt(event.target.parentNode.parentNode.getAttribute("id"), 10);
 
-      team[oldPosition].position = oldPosition;
-      team[newPosition].position = newPosition;
-
-      setTeam([...team]);
+    let newPosition
+    if (Number.isNaN(checkParent)) {
+      newPosition = checkGrandParent
+    } else {
+      newPosition = checkParent
     }
+
+    let temp = team[oldPosition];
+
+    team[oldPosition] = team[newPosition];
+    team[newPosition] = temp
+
+    team[oldPosition].position = oldPosition;
+    team[newPosition].position = newPosition;
+
+    setTeam([...team]);
   }
 }
 
@@ -166,7 +179,8 @@ export function VolleyballFriendly() {
           <p className="has-background-primary" 
             contentEditable="true"
             suppressContentEditableWarning="true"
-            onKeyDown={(event) => allowKeyDown(event, player)}>
+            onBlur={(event) => overwritePlayer(event, player)}
+            onKeyDown={(event) => allowKeyDown(event)}>
             {player.name}
           </p>
         </div>
@@ -178,14 +192,22 @@ export function VolleyballFriendly() {
     event.preventDefault(); // Default behavior is not to allow drop, so we will allow this
   }
 
-  function allowKeyDown(event, player) {
+  function allowKeyDown(event) {
     if (event.key === "Enter" || event.key === "Tab") {
       event.preventDefault();
-      let newName = event.target.innerHTML.replace("<br>", "")
-      player.name = newName
-      setTeam([...team]);
       event.target.blur();
     }
+  }
+
+  function clickHandler(event) {
+    
+  }
+
+  function overwritePlayer(event, player) {
+    event.preventDefault();
+    let newName = event.target.innerHTML.replace("<br>", "")
+    player.name = newName
+    setTeam([...team]);
   }
 
   function startDrag(event) {
@@ -196,17 +218,25 @@ export function VolleyballFriendly() {
     event.preventDefault();
 
     let oldPosition = parseInt(event.dataTransfer.getData("text"), 10);
-    let newPosition = parseInt(event.target.parentNode.getAttribute("id"), 10);
-    if (!Number.isNaN(newPosition)) {
-      let temp = team[oldPosition];
 
-      team[oldPosition] = team[newPosition];
-      team[newPosition] = temp
+    let checkParent = parseInt(event.target.parentNode.getAttribute("id"), 10);
+    let checkGrandParent = parseInt(event.target.parentNode.parentNode.getAttribute("id"), 10);
 
-      team[oldPosition].position = oldPosition;
-      team[newPosition].position = newPosition;
-
-      setTeam([...team]);
+    let newPosition
+    if (Number.isNaN(checkParent)) {
+      newPosition = checkGrandParent
+    } else {
+      newPosition = checkParent
     }
+
+    let temp = team[oldPosition];
+
+    team[oldPosition] = team[newPosition];
+    team[newPosition] = temp
+
+    team[oldPosition].position = oldPosition;
+    team[newPosition].position = newPosition;
+
+    setTeam([...team]);
   }
 }

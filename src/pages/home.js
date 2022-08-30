@@ -29,7 +29,7 @@ export default function Home() {
           <VolleyballFriendly className="section py-0" />
 
           <div className="section has-text-centered">
-            <button>Save</button>
+            <div className="button">Save</div>
           </div>
 
         </div>
