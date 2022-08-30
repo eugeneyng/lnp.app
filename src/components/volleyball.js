@@ -199,10 +199,6 @@ export function VolleyballFriendly() {
     }
   }
 
-  function clickHandler(event) {
-    
-  }
-
   function overwritePlayer(event, player) {
     event.preventDefault();
     let newName = event.target.innerHTML.replace("<br>", "")

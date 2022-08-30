@@ -21,16 +21,16 @@ export default function Home() {
           {/* This section is for the net */}
           <div className="section py-0 has-text-centered">
             <hr />
-            <div className="button">Rotate</div>
+            <div>Net</div>
             <hr />
           </div>
 
           {/* This section is for the friendly team */}
           <VolleyballFriendly className="section py-0" />
 
-          <div className="section has-text-centered">
+          {/* <div className="section has-text-centered">
             <div className="button">Save</div>
-          </div>
+          </div> */}
 
         </div>
       </div>
