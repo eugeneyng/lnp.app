@@ -1,5 +1,39 @@
 {
-  "players": [
+  "rivalPlayers": [
+    {
+      "name": "H",
+      "position": 0
+    },
+    {
+      "name": "A",
+      "position": 1
+    },
+    {
+      "name": "B",
+      "position": 2
+    },
+    {
+      "name": "C",
+      "position": 3
+    },
+    {
+      "name": "D",
+      "position": 4
+    },
+    {
+      "name": "E",
+      "position": 5
+    },
+    {
+      "name": "F",
+      "position": 6
+    },
+    {
+      "name": "G",
+      "position": 7
+    }
+  ],
+  "friendlyPlayers": [
     {
       "name": "H",
       "position": 0
