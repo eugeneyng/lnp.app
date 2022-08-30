@@ -25,6 +25,9 @@ export function VolleyballRival() {
         {rightsubs.map(createPlayerCard)}
       </div>
       <div className="box has-background-grey-light column">
+        <div className="has-text-centered">
+          <div className="button">Rotate</div>
+        </div>
         <div className="columns is-mobile is-vcentered">
           <div className="column">
             {rightside.map(createPlayerCard)}
@@ -59,7 +62,7 @@ export function VolleyballRival() {
           <div className="title">
             {player.name.charAt(0)}
           </div>
-          <p className="has-background-primary" 
+          <p className="has-background-primary"
             contentEditable="true"
             suppressContentEditableWarning="true"
             onBlur={(event) => overwritePlayer(event, player)}
@@ -134,7 +137,7 @@ export function VolleyballFriendly() {
   let rightsubs = [team[0]]
   let rightside = [team[2], team[1]];
   let middleide = [team[3], team[6]];
-  let leftside =  [team[4], team[5]];
+  let leftside = [team[4], team[5]];
   let leftsubs = [team[7]]
 
   return (
@@ -143,6 +146,9 @@ export function VolleyballFriendly() {
         {leftsubs.map(createPlayerCard)}
       </div>
       <div className="box has-background-grey-light column">
+        <div className="has-text-centered">
+          <div className="button">Rotate</div>
+        </div>
         <div className="columns is-mobile is-vcentered">
           <div className="column">
             {leftside.map(createPlayerCard)}
@@ -176,7 +182,7 @@ export function VolleyballFriendly() {
           <div className="title">
             {player.name.charAt(0)}
           </div>
-          <p className="has-background-primary" 
+          <p className="has-background-primary"
             contentEditable="true"
             suppressContentEditableWarning="true"
             onBlur={(event) => overwritePlayer(event, player)}
