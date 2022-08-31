@@ -3,54 +3,119 @@ import * as React from "react";
 import defaults from "../assets/defaults.json";
 
 export function VolleyballRival() {
-
   var uniqueIDCounter = 0;
   function uniqueId() {
-    uniqueIDCounter += 1
+    uniqueIDCounter += 1;
     return uniqueIDCounter;
   }
 
   const [team, setTeam] = React.useState(defaults.rivalPlayers);
+  const [rightSubs, setRightSubs] = React.useState([]);
+  const [leftSubs, setLeftSubs] = React.useState([]);
   console.log(team);
+  console.log(rightSubs);
 
-  let rightsubs = [team[0]]
-  let rightside = [team[1], team[2]];
-  let middleide = [team[6], team[3]];
-  let leftside = [team[5], team[4]];
-  let leftsubs = [team[7]]
+  let leftSide = [team[4], team[3]];
+  let middle = [team[5], team[2]];
+  let rightSide = [team[0], team[1]];
 
   return (
     <div className="columns is-mobile is-vcentered">
       <div className="column is-one-fifth">
-        {rightsubs.map(createPlayerCard)}
+        {rightSubs.length
+          ? rightSubs.map(createPlayerCard)
+          : createAddPlayerCard("right")}
       </div>
       <div className="box has-background-grey-light column">
         <div className="has-text-centered">
           <div className="button">Rotate</div>
         </div>
         <div className="columns is-mobile is-vcentered">
-          <div className="column">
-            {rightside.map(createPlayerCard)}
-          </div>
-          <div className="column">
-            {middleide.map(createPlayerCard)}
-          </div>
-          <div className="column">
-            {leftside.map(createPlayerCard)}
-          </div>
+          <div className="column">{rightSide.map(createPlayerCard)}</div>
+          <div className="column">{middle.map(createPlayerCard)}</div>
+          <div className="column">{leftSide.map(createPlayerCard)}</div>
         </div>
       </div>
       <div className="column is-one-fifth">
-        {leftsubs.map(createPlayerCard)}
+        {leftSubs.length
+          ? leftSubs.map(createPlayerCard)
+          : createAddPlayerCard("left")}
+      </div>
+      <div className="modal" id="right-modal">
+        <div
+          className="modal-background"
+          onClick={() =>
+            document.querySelector("#right-modal").classList.toggle("is-active")
+          }
+        ></div>
+        <div className="modal-content">
+          <input
+            className="input"
+            type="text"
+            placeholder="New Player Name"
+            onBlur={(event) => {
+              rightSubs.push({ name: event.target.value, position: -1 }); // Position -1 tells us it is a right sub
+              setRightSubs([...rightSubs]);
+              document
+                .querySelector("#right-modal")
+                .classList.toggle("is-active");
+            }}
+            onKeyDown={(event) => allowKeyDown(event)}
+          ></input>
+        </div>
+      </div>
+      <div className="modal" id="left-modal">
+        <div
+          className="modal-background"
+          onClick={() =>
+            document.querySelector("#left-modal").classList.toggle("is-active")
+          }
+        ></div>
+        <div className="modal-content">
+          <input
+            className="input"
+            type="text"
+            placeholder="New Player Name"
+            onBlur={(event) => {
+              leftSubs.push({ name: event.target.value, position: -2 }); // Position -2 tells us it is a left sub
+              setLeftSubs([...leftSubs]);
+              document
+                .querySelector("#left-modal")
+                .classList.toggle("is-active");
+            }}
+            onKeyDown={(event) => allowKeyDown(event)}
+          ></input>
+        </div>
       </div>
     </div>
-  )
+  );
+
+  function createAddPlayerCard(side) {
+    return (
+      <div
+        className="card my-5 has-background-grey-lighter has-text-centered"
+        onClick={() => {
+          if (side == "right") {
+            document
+              .querySelector("#right-modal")
+              .classList.toggle("is-active");
+          } else {
+            document.querySelector("#left-modal").classList.toggle("is-active");
+          }
+        }}
+      >
+        <div className="card-content">
+          <div className="title">+</div>
+        </div>
+      </div>
+    );
+  }
 
   function createPlayerCard(player) {
-
-    let id = uniqueId()
+    let id = uniqueId();
     return (
-      <div className="card my-5 has-background-grey-lighter has-text-centered"
+      <div
+        className="card my-5 has-background-grey-lighter has-text-centered"
         draggable="true"
         id={player.position} // need this for event attributes
         key={id}
@@ -59,19 +124,19 @@ export function VolleyballRival() {
         onDrop={(event) => swap(event)}
       >
         <div className="card-content">
-          <div className="title">
-            {player.name.charAt(0)}
-          </div>
-          <p className="has-background-primary"
+          <div className="title">{player.name.charAt(0)}</div>
+          <p
+            className="has-background-primary"
             contentEditable="true"
             suppressContentEditableWarning="true"
             onBlur={(event) => overwritePlayer(event, player)}
-            onKeyDown={(event) => allowKeyDown(event)}>
+            onKeyDown={(event) => allowKeyDown(event)}
+          >
             {player.name}
           </p>
         </div>
       </div>
-    )
+    );
   }
 
   function allowDrop(event) {
@@ -87,8 +152,8 @@ export function VolleyballRival() {
 
   function overwritePlayer(event, player) {
     event.preventDefault();
-    let newName = event.target.innerHTML.replace("<br>", "")
-    player.name = newName
+    let newName = event.target.innerHTML.replace("<br>", "");
+    player.name = newName;
     setTeam([...team]);
   }
 
@@ -102,19 +167,22 @@ export function VolleyballRival() {
     let oldPosition = parseInt(event.dataTransfer.getData("text"), 10);
 
     let checkParent = parseInt(event.target.parentNode.getAttribute("id"), 10);
-    let checkGrandParent = parseInt(event.target.parentNode.parentNode.getAttribute("id"), 10);
+    let checkGrandParent = parseInt(
+      event.target.parentNode.parentNode.getAttribute("id"),
+      10
+    );
 
-    let newPosition
+    let newPosition;
     if (Number.isNaN(checkParent)) {
-      newPosition = checkGrandParent
+      newPosition = checkGrandParent;
     } else {
-      newPosition = checkParent
+      newPosition = checkParent;
     }
 
     let temp = team[oldPosition];
 
     team[oldPosition] = team[newPosition];
-    team[newPosition] = temp
+    team[newPosition] = temp;
 
     team[oldPosition].position = oldPosition;
     team[newPosition].position = newPosition;
@@ -124,21 +192,20 @@ export function VolleyballRival() {
 }
 
 export function VolleyballFriendly() {
-
   var uniqueIDCounter = 0;
   function uniqueId() {
-    uniqueIDCounter -= 1
+    uniqueIDCounter -= 1;
     return uniqueIDCounter;
   }
 
   const [team, setTeam] = React.useState(defaults.friendlyPlayers);
   console.log(team);
 
-  let rightsubs = [team[0]]
+  let rightsubs = [team[0]];
   let rightside = [team[2], team[1]];
   let middleide = [team[3], team[6]];
   let leftside = [team[4], team[5]];
-  let leftsubs = [team[7]]
+  let leftsubs = [team[7]];
 
   return (
     <div className="columns is-mobile is-vcentered">
@@ -150,27 +217,22 @@ export function VolleyballFriendly() {
           <div className="button">Rotate</div>
         </div>
         <div className="columns is-mobile is-vcentered">
-          <div className="column">
-            {leftside.map(createPlayerCard)}
-          </div>
-          <div className="column">
-            {middleide.map(createPlayerCard)}
-          </div>
-          <div className="column">
-            {rightside.map(createPlayerCard)}
-          </div>
+          <div className="column">{leftside.map(createPlayerCard)}</div>
+          <div className="column">{middleide.map(createPlayerCard)}</div>
+          <div className="column">{rightside.map(createPlayerCard)}</div>
         </div>
       </div>
       <div className="column is-one-fifth">
         {rightsubs.map(createPlayerCard)}
       </div>
     </div>
-  )
+  );
 
   function createPlayerCard(player) {
-    let id = uniqueId()
+    let id = uniqueId();
     return (
-      <div className="card my-5 has-background-grey-lighter has-text-centered"
+      <div
+        className="card my-5 has-background-grey-lighter has-text-centered"
         draggable="true"
         id={player.position} // need this for event attributes
         key={id}
@@ -179,19 +241,19 @@ export function VolleyballFriendly() {
         onDrop={(event) => swap(event)}
       >
         <div className="card-content">
-          <div className="title">
-            {player.name.charAt(0)}
-          </div>
-          <p className="has-background-primary"
+          <div className="title">{player.name.charAt(0)}</div>
+          <p
+            className="has-background-primary"
             contentEditable="true"
             suppressContentEditableWarning="true"
             onBlur={(event) => overwritePlayer(event, player)}
-            onKeyDown={(event) => allowKeyDown(event)}>
+            onKeyDown={(event) => allowKeyDown(event)}
+          >
             {player.name}
           </p>
         </div>
       </div>
-    )
+    );
   }
 
   function allowDrop(event) {
@@ -207,8 +269,8 @@ export function VolleyballFriendly() {
 
   function overwritePlayer(event, player) {
     event.preventDefault();
-    let newName = event.target.innerHTML.replace("<br>", "")
-    player.name = newName
+    let newName = event.target.innerHTML.replace("<br>", "");
+    player.name = newName;
     setTeam([...team]);
   }
 
@@ -222,19 +284,22 @@ export function VolleyballFriendly() {
     let oldPosition = parseInt(event.dataTransfer.getData("text"), 10);
 
     let checkParent = parseInt(event.target.parentNode.getAttribute("id"), 10);
-    let checkGrandParent = parseInt(event.target.parentNode.parentNode.getAttribute("id"), 10);
+    let checkGrandParent = parseInt(
+      event.target.parentNode.parentNode.getAttribute("id"),
+      10
+    );
 
-    let newPosition
+    let newPosition;
     if (Number.isNaN(checkParent)) {
-      newPosition = checkGrandParent
+      newPosition = checkGrandParent;
     } else {
-      newPosition = checkParent
+      newPosition = checkParent;
     }
 
     let temp = team[oldPosition];
 
     team[oldPosition] = team[newPosition];
-    team[newPosition] = temp
+    team[newPosition] = temp;
 
     team[oldPosition].position = oldPosition;
     team[newPosition].position = newPosition;

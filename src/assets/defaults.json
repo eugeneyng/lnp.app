@@ -1,69 +1,61 @@
 {
   "rivalPlayers": [
     {
-      "name": "H",
+      "name": "Setter",
       "position": 0
     },
     {
-      "name": "A",
+      "name": "Outside",
       "position": 1
     },
     {
-      "name": "B",
+      "name": "Middle",
       "position": 2
     },
     {
-      "name": "C",
+      "name": "Setter/Right Side",
       "position": 3
     },
     {
-      "name": "D",
+      "name": "Outside",
       "position": 4
     },
     {
-      "name": "E",
+      "name": "Middle",
       "position": 5
-    },
-    {
-      "name": "F",
-      "position": 6
-    },
-    {
-      "name": "G",
-      "position": 7
     }
   ],
   "friendlyPlayers": [
     {
-      "name": "H",
+      "name": "Sub",
       "position": 0
     },
     {
-      "name": "A",
+      "name": "Setter",
       "position": 1
     },
     {
-      "name": "B",
+      "name": "Outside",
       "position": 2
     },
     {
-      "name": "C",
+      "name": "Middle",
       "position": 3
     },
     {
-      "name": "D",
+      "name": "Setter/Right Side",
       "position": 4
     },
     {
-      "name": "E",
+      "name": "Outside",
       "position": 5
     },
     {
-      "name": "F",
+      "name": "Middle",
       "position": 6
     },
     {
-      "name": "G",
+      "name": "Sub",
       "position": 7
     }
   ]
