@@ -1,18 +1,14 @@
 import "bulma/css/bulma.css";
 import * as React from "react";
 import { VolleyballFriendly, VolleyballRival } from "../components/volleyball";
-import defaults from "../assets/defaults.json";
+import { DonateKofi, DonatePayPal } from "../components/donate";
 
 export default function Home() {
-
   return (
     <div className="hero is-fullheight">
-      <div className="hero-head">
-
-      </div>
+      <div className="hero-head"></div>
       <div className="hero-body">
         <div className="container">
-
           {/* TODO: Use + and x buttons to add or delete players, instead of this form */}
 
           {/* This section is for the opposing team */}
@@ -32,11 +28,13 @@ export default function Home() {
             <div className="button">Save</div>
           </div> */}
 
+          <div className="has-text-centered">
+            <DonateKofi />
+            <p>If you enjoyed using this website, help pay for domain name and hosting costs!</p>
+          </div>
         </div>
       </div>
-      <div className="hero-foot">
-
-      </div>
+      <div className="hero-foot"></div>
     </div>
   );
 }
