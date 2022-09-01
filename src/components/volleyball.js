@@ -22,9 +22,8 @@ export function VolleyballRival() {
   return (
     <div className="columns is-mobile is-vcentered">
       <div className="column is-one-fifth">
-        {rightSubs.length
-          ? rightSubs.map(createPlayerCard)
-          : createAddPlayerCard("right")}
+        {rightSubs.map(createPlayerCard)}
+        {createAddPlayerCard("right")}
       </div>
       <div className="box has-background-grey-light column">
         <div className="has-text-centered">
@@ -37,9 +36,8 @@ export function VolleyballRival() {
         </div>
       </div>
       <div className="column is-one-fifth">
-        {leftSubs.length
-          ? leftSubs.map(createPlayerCard)
-          : createAddPlayerCard("left")}
+        {leftSubs.map(createPlayerCard)}
+        {createAddPlayerCard("left")}
       </div>
       <div className="modal" id="right-modal">
         <div
@@ -54,11 +52,12 @@ export function VolleyballRival() {
             type="text"
             placeholder="New Player Name"
             onBlur={(event) => {
-              rightSubs.push({ name: event.target.value, position: -1 }); // Position -1 tells us it is a right sub
+              rightSubs.push({ name: event.target.value, position: -100 }); // Position -100 tells us it is a right sub
               setRightSubs([...rightSubs]);
               document
                 .querySelector("#right-modal")
                 .classList.toggle("is-active");
+              event.target.value = "";
             }}
             onKeyDown={(event) => allowKeyDown(event)}
           ></input>
@@ -77,11 +76,12 @@ export function VolleyballRival() {
             type="text"
             placeholder="New Player Name"
             onBlur={(event) => {
-              leftSubs.push({ name: event.target.value, position: -2 }); // Position -2 tells us it is a left sub
+              leftSubs.push({ name: event.target.value, position: -200 }); // Position -200 tells us it is a left sub
               setLeftSubs([...leftSubs]);
               document
                 .querySelector("#left-modal")
                 .classList.toggle("is-active");
+              event.target.value = "";
             }}
             onKeyDown={(event) => allowKeyDown(event)}
           ></input>
