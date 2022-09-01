@@ -27,36 +27,28 @@
   ],
   "friendlyPlayers": [
     {
-      "name": "Sub",
+      "name": "Setter",
       "position": 0
     },
     {
-      "name": "Setter",
+      "name": "Outside",
       "position": 1
     },
     {
-      "name": "Outside",
+      "name": "Middle",
       "position": 2
     },
     {
-      "name": "Middle",
+      "name": "Setter/Right Side",
       "position": 3
     },
     {
-      "name": "Setter/Right Side",
+      "name": "Outside",
       "position": 4
     },
     {
-      "name": "Outside",
-      "position": 5
-    },
-    {
       "name": "Middle",
-      "position": 6
-    },
-    {
-      "name": "Sub",
-      "position": 7
+      "position": 5
     }
   ]
 }

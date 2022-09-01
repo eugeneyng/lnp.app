@@ -12,8 +12,6 @@ export function VolleyballRival() {
   const [team, setTeam] = React.useState(defaults.rivalPlayers);
   const [rightSubs, setRightSubs] = React.useState([]);
   const [leftSubs, setLeftSubs] = React.useState([]);
-  console.log(team);
-  console.log(rightSubs);
 
   let leftSide = [team[4], team[3]];
   let middle = [team[5], team[2]];
@@ -27,7 +25,9 @@ export function VolleyballRival() {
       </div>
       <div className="box has-background-grey-light column">
         <div className="has-text-centered">
-          <div className="button">Rotate</div>
+          <div className="button" onClick={(event) => rotate(event)}>
+            Rotate
+          </div>
         </div>
         <div className="columns is-mobile is-vcentered">
           <div className="column">{rightSide.map(createPlayerCard)}</div>
@@ -66,13 +66,18 @@ export function VolleyballRival() {
       <div className="modal" id="left-modal">
         <div
           className="modal-background"
-          onClick={() =>
-            document.querySelector("#left-modal").classList.toggle("is-active")
+          onClick={
+            () =>
+              document
+                .querySelector("#left-modal")
+                .classList.toggle("is-active")
+            // document.getElementById("leftModalText").Focus();
           }
         ></div>
         <div className="modal-content">
           <input
             className="input"
+            // id="leftModalText"
             type="text"
             placeholder="New Player Name"
             onBlur={(event) => {
@@ -157,6 +162,34 @@ export function VolleyballRival() {
     setTeam([...team]);
   }
 
+  function rotate(event) {
+    let first = team.shift();
+    team.push(first);
+
+    if (rightSubs.length > 0) {
+      let subRightIn = rightSubs.shift();
+      team.splice(0, 0, subRightIn);
+      let subRightOut = team.splice(1, 1)[0];
+      subRightOut.position = -100;
+      rightSubs.push(subRightOut);
+    }
+    if (leftSubs.length > 0) {
+      let subLeftIn = leftSubs.pop();
+      team.splice(3, 0, subLeftIn);
+      let subLeftOut = team.splice(4, 1)[0];
+      subLeftOut.position = -200;
+      leftSubs.unshift(subLeftOut);
+    }
+
+    for (let i = 0; i < team.length; i++) {
+      team[i].position = i;
+    }
+
+    setTeam([...team]);
+    setLeftSubs([...leftSubs]);
+    setRightSubs([...rightSubs]);
+  }
+
   function startDrag(event) {
     event.dataTransfer.setData("text/plain", event.target.getAttribute("id"));
   }
@@ -198,35 +231,109 @@ export function VolleyballFriendly() {
     return uniqueIDCounter;
   }
 
-  const [team, setTeam] = React.useState(defaults.friendlyPlayers);
-  console.log(team);
+  const [team, setTeam] = React.useState(defaults.rivalPlayers);
+  const [rightSubs, setRightSubs] = React.useState([]);
+  const [leftSubs, setLeftSubs] = React.useState([]);
 
-  let rightsubs = [team[0]];
-  let rightside = [team[2], team[1]];
-  let middleide = [team[3], team[6]];
-  let leftside = [team[4], team[5]];
-  let leftsubs = [team[7]];
+  let rightSide = [team[1], team[0]];
+  let middle = [team[2], team[5]];
+  let leftSide = [team[3], team[4]];
 
   return (
     <div className="columns is-mobile is-vcentered">
       <div className="column is-one-fifth">
-        {leftsubs.map(createPlayerCard)}
+        {leftSubs.map(createPlayerCard)}
+        {createAddPlayerCard("left")}
       </div>
       <div className="box has-background-grey-light column">
         <div className="has-text-centered">
-          <div className="button">Rotate</div>
+          <div className="button" onClick={(event) => rotate(event)}>
+            Rotate
+          </div>
         </div>
         <div className="columns is-mobile is-vcentered">
-          <div className="column">{leftside.map(createPlayerCard)}</div>
-          <div className="column">{middleide.map(createPlayerCard)}</div>
-          <div className="column">{rightside.map(createPlayerCard)}</div>
+          <div className="column">{leftSide.map(createPlayerCard)}</div>
+          <div className="column">{middle.map(createPlayerCard)}</div>
+          <div className="column">{rightSide.map(createPlayerCard)}</div>
         </div>
       </div>
       <div className="column is-one-fifth">
-        {rightsubs.map(createPlayerCard)}
+        {rightSubs.map(createPlayerCard)}
+        {createAddPlayerCard("right")}
+      </div>
+      <div className="modal" id="left-modal">
+        <div
+          className="modal-background"
+          onClick={() =>
+            document.querySelector("#left-modal").classList.toggle("is-active")
+          }
+        ></div>
+        <div className="modal-content">
+          <input
+            className="input"
+            type="text"
+            placeholder="New Player Name"
+            onBlur={(event) => {
+              leftSubs.push({ name: event.target.value, position: -200 }); // Position -200 tells us it is a left sub
+              setLeftSubs([...leftSubs]);
+              document
+                .querySelector("#left-modal")
+                .classList.toggle("is-active");
+              event.target.value = "";
+            }}
+            onKeyDown={(event) => allowKeyDown(event)}
+          ></input>
+        </div>
+      </div>
+      <div className="modal" id="right-modal">
+        <div
+          className="modal-background"
+          onClick={
+            () =>
+              document
+                .querySelector("#right-modal")
+                .classList.toggle("is-active")
+            // document.getElementById("leftModalText").Focus();
+          }
+        ></div>
+        <div className="modal-content">
+          <input
+            className="input"
+            type="text"
+            placeholder="New Player Name"
+            onBlur={(event) => {
+              rightSubs.push({ name: event.target.value, position: -200 }); // Position -200 tells us it is a left sub
+              setLeftSubs([...rightSubs]);
+              document
+                .querySelector("#right-modal")
+                .classList.toggle("is-active");
+              event.target.value = "";
+            }}
+            onKeyDown={(event) => allowKeyDown(event)}
+          ></input>
+        </div>
       </div>
     </div>
   );
+
+  function createAddPlayerCard(side) {
+    return (
+      <div
+        className="card my-5 has-background-grey-lighter has-text-centered"
+        onClick={() => {
+          if (side == "right") {
+            document.querySelector("#right-modal").classList.toggle("is-active");
+          } else {
+            document.querySelector("#left-modal").classList.toggle("is-active");
+          }
+        }}
+      >
+        <div className="card-content">
+          <div className="title">+</div>
+        </div>
+      </div>
+    );
+  }
 
   function createPlayerCard(player) {
     let id = uniqueId();
@@ -272,6 +379,34 @@ export function VolleyballFriendly() {
     let newName = event.target.innerHTML.replace("<br>", "");
     player.name = newName;
     setTeam([...team]);
+  }
+
+  function rotate(event) {
+    let first = team.shift();
+    team.push(first);
+
+    if (rightSubs.length > 0) {
+      let subRightIn = rightSubs.shift();
+      team.splice(0, 0, subRightIn);
+      let subRightOut = team.splice(1, 1)[0];
+      subRightOut.position = -100;
+      rightSubs.push(subRightOut);
+    }
+    if (leftSubs.length > 0) {
+      let subLeftIn = leftSubs.pop();
+      team.splice(3, 0, subLeftIn);
+      let subLeftOut = team.splice(4, 1)[0];
+      subLeftOut.position = -200;
+      leftSubs.unshift(subLeftOut);
+    }
+
+    for (let i = 0; i < team.length; i++) {
+      team[i].position = i;
+    }
+
+    setTeam([...team]);
+    setLeftSubs([...leftSubs]);
+    setRightSubs([...rightSubs]);
   }
 
   function startDrag(event) {
