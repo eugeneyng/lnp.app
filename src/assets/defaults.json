@@ -1,31 +1,5 @@
 {
-  "rivalPlayers": [
-    {
-      "name": "Setter",
-      "position": 0
-    },
-    {
-      "name": "Outside",
-      "position": 1
-    },
-    {
-      "name": "Middle",
-      "position": 2
-    },
-    {
-      "name": "Setter/Right Side",
-      "position": 3
-    },
-    {
-      "name": "Outside",
-      "position": 4
-    },
-    {
-      "name": "Middle",
-      "position": 5
-    }
-  ],
-  "friendlyPlayers": [
+  "players": [
     {
       "name": "Setter",
       "position": 0

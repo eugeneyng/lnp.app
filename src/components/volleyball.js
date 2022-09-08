@@ -1,17 +1,43 @@
 import "bulma/css/bulma.css";
 import * as React from "react";
-import defaults from "../assets/defaults.json";
-
-var uniqueIDCounter = 0;
 
 export function Volleyball() {
+
+  var uniqueIDCounter = 0;
 
   function uniqueId() {
     uniqueIDCounter += 1;
     return uniqueIDCounter;
   }
+  
+  let players = [
+    {
+      "name": "Setter",
+      "position": 0
+    },
+    {
+      "name": "Outside",
+      "position": 1
+    },
+    {
+      "name": "Middle",
+      "position": 2
+    },
+    {
+      "name": "Setter/Right Side",
+      "position": 3
+    },
+    {
+      "name": "Outside",
+      "position": 4
+    },
+    {
+      "name": "Middle",
+      "position": 5
+    }
+  ]
 
-  const [team, setTeam] = React.useState(defaults.rivalPlayers);
+  const [team, setTeam] = React.useState(players);
   const [rightSubs, setRightSubs] = React.useState([]);
   const [leftSubs, setLeftSubs] = React.useState([]);
 
