@@ -1,2 +1,2 @@
-export { VolleyballRival, VolleyballFriendly } from "./volleyball";
+export { Volleyball } from "./volleyball";
 export { DonateKofi, DonatePayPal } from "./donate";
