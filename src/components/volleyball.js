@@ -1,7 +1,7 @@
 import "bulma/css/bulma.css";
 import * as React from "react";
 
-export function Volleyball() {
+export function Volleyball(props) {
 
   var uniqueIDCounter = 0;
 
@@ -9,6 +9,9 @@ export function Volleyball() {
     uniqueIDCounter += 1;
     return uniqueIDCounter;
   }
+
+  let rightModalId = "right-modal-" + props.side;
+  let leftModalId = "left-modal-" + props.side;
   
   let players = [
     {
@@ -67,11 +70,11 @@ export function Volleyball() {
         {leftSubs.map(createPlayerCard)}
         {createAddPlayerCard("left")}
       </div>
-      <div className="modal" id="right-modal">
+      <div className="modal" id={rightModalId}>
         <div
           className="modal-background"
           onClick={() =>
-            document.querySelector("#right-modal").classList.toggle("is-active")
+            document.querySelector("#"+rightModalId).classList.toggle("is-active")
           }
         ></div>
         <div className="modal-content">
@@ -83,7 +86,7 @@ export function Volleyball() {
               rightSubs.push({ name: event.target.value, position: -100 }); // Position -100 tells us it is a right sub
               setRightSubs([...rightSubs]);
               document
-                .querySelector("#right-modal")
+                .querySelector("#"+rightModalId)
                 .classList.toggle("is-active");
               event.target.value = "";
             }}
@@ -91,13 +94,13 @@ export function Volleyball() {
           ></input>
         </div>
       </div>
-      <div className="modal" id="left-modal">
+      <div className="modal" id={leftModalId}>
         <div
           className="modal-background"
           onClick={
             () =>
               document
-                .querySelector("#left-modal")
+                .querySelector("#"+leftModalId)
                 .classList.toggle("is-active")
             // document.getElementById("leftModalText").Focus();
           }
@@ -112,7 +115,7 @@ export function Volleyball() {
               leftSubs.push({ name: event.target.value, position: -200 }); // Position -200 tells us it is a left sub
               setLeftSubs([...leftSubs]);
               document
-                .querySelector("#left-modal")
+                .querySelector("#"+leftModalId)
                 .classList.toggle("is-active");
               event.target.value = "";
             }}
@@ -130,10 +133,10 @@ export function Volleyball() {
         onClick={() => {
           if (side == "right") {
             document
-              .querySelector("#right-modal")
+              .querySelector("#"+rightModalId)
               .classList.toggle("is-active");
           } else {
-            document.querySelector("#left-modal").classList.toggle("is-active");
+            document.querySelector("#"+leftModalId).classList.toggle("is-active");
           }
         }}
       >

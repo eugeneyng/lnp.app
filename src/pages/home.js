@@ -16,7 +16,7 @@ export default function Home() {
         <div className="container">
 
           {/* This section is for the opposing team */}
-          <Volleyball className="section py-0" />
+          <Volleyball side="rival" className="section py-0" />
 
           {/* This section is for the net */}
           <div className="section py-0 has-text-centered">
@@ -26,7 +26,7 @@ export default function Home() {
           </div>
 
           {/* This section is for the friendly team */}
-          <Volleyball className="section py-0" />
+          <Volleyball side="friendly" className="section py-0" />
 
           {/* <div className="section has-text-centered">
             <div className="button">Save</div>
