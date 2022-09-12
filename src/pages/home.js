@@ -5,16 +5,16 @@ import { DonateKofi, DonatePayPal } from "../components/donate";
 import {
   enable as enableDarkMode,
   disable as disableDarkMode,
-  auto as followSystemColorScheme
-} from 'darkreader';
+  auto as followSystemColorScheme,
+} from "darkreader";
 
 export default function Home() {
+  followSystemColorScheme();
   return (
     <div className="hero is-fullheight">
       <div className="hero-head"></div>
       <div className="hero-body">
         <div className="container">
-
           {/* This section is for the opposing team */}
           <Volleyball side="rival" className="section py-0" />
 
@@ -34,9 +34,11 @@ export default function Home() {
 
           <div className="has-text-centered">
             <DonateKofi />
-            <p>If you enjoyed using this website, help pay for domain name and hosting costs!</p>
+            <p>
+              If you enjoyed using this website, help pay for domain name and
+              hosting costs!
+            </p>
           </div>
-          
         </div>
       </div>
       <div className="hero-foot"></div>
