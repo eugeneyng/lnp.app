@@ -4,10 +4,8 @@ LNP.APP is a lineup simulator, currently only for volleyball, to help users visu
 
 ### Built With
 
-This section should list any major frameworks/libraries used to bootstrap your project. Leave any add-ons/plugins for the acknowledgements section. Here are a few examples.
-
-* [![React][React.js]][https://reactjs.org/]
-* [![Bulma][Bulma.io]][https://bulma.io/]
+* [React.js](https://reactjs.org/)
+* [Bulma.io](https://bulma.io/)
 
 ## Getting Started
 
