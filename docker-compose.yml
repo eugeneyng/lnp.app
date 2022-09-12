@@ -6,10 +6,15 @@ services:
     image: sebp/lighttpd:latest
     networks:
       - default
-    ports:
-      - "80:80"
+#    ports:
+#      - "80:80"
     restart: unless-stopped
     tty: true
     volumes:
       - /root/lnp.app/build:/var/www/localhost/htdocs
       # - <config-directory>:/etc/lighttpd
+
+networks:
+  default:
+    external:
+      name: racknerd
