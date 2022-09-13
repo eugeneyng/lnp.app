@@ -7,6 +7,13 @@ LNP.APP is a lineup simulator, currently only for volleyball, to help users visu
 * [React.js](https://reactjs.org/)
 * [Bulma.io](https://bulma.io/)
 
+## Features
+
+* Add a new player
+* Rename a player
+* Rotate players
+* Swap players
+
 ## Getting Started
 
 ### Prerequisites
@@ -22,13 +29,6 @@ cd lnp.app
 npm install
 npm start
 ```
-
-## Usage
-
-* Add a new player
-* Rename a player
-* Rotate players
-* Swap players
 
 ## Contributing
 
